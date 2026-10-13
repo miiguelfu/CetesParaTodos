@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guía con letra grande para abrir una cuenta en Cetes Directo, entender la subasta del martes y calcular cuánto se gana.">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Cetes paso a paso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bitter:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: libreta de ahorro. Una sola columna tranquila y amplia, dividida en cuatro "partes";
+   numeración solo donde el orden importa (abrir la cuenta, la semana de la subasta). */
+/* Tema único y claro a propósito: fondos casi blancos, verdes y amarillos pastel, texto oscuro para buena lectura */
+:root{
+  --paper:#FAFCFA;
+  --sheet:#FFFFFF;
+  --ink:#1C2B24;
+  --ink-soft:#4F6158;
+  --green:#2E7D5B;
+  --green-mid:#A8D4BF;
+  --green-soft:#EDF6F1;
+  --on-green:#FFFFFF;
+  --marigold:#F7C25C;
+  --marigold-soft:#FFF6E3;
+  --on-marigold:#2A1F08;
+  --alert:#B3402F;
+  --alert-soft:#FDF1EE;
+  --line:#DCE6E0;
+  --font-display:"Bitter", Georgia, "Times New Roman", serif;
+  --font-body:"Atkinson Hyperlegible", "Segoe UI", Verdana, Arial, sans-serif;
+  --radius:14px;
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:1.25rem;
+  line-height:1.6;
+}
+.wrap{max-width:47rem;margin:0 auto;padding-inline:1.25rem;padding-block:1.75rem 7rem}
+
+h1,h2,h3{font-family:var(--font-display);line-height:1.15;text-wrap:balance;margin:0;color:var(--ink)}
+h1{font-size:clamp(2.5rem,8vw,3.75rem);font-weight:800;letter-spacing:-0.01em}
+h2{font-size:clamp(1.75rem,5vw,2.1rem);font-weight:700}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0}
+a{color:var(--green);text-underline-offset:0.18em;text-decoration-thickness:0.08em}
+strong{font-weight:700}
+:focus-visible{outline:3px solid var(--marigold);outline-offset:3px;border-radius:6px}
+[id]{scroll-margin-top:1.25rem}
+
+.stack{display:flex;flex-direction:column;gap:1rem}
+.stack-lg{display:flex;flex-direction:column;gap:1.5rem}
+
+/* ---------- Cabecera ---------- */
+.eyebrow{font-size:0.95rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.hero{display:grid;gap:1.75rem;align-items:center}
+@media (min-width:760px){ .hero{grid-template-columns:1.35fr 1fr} }
+.lead{font-size:1.35rem;color:var(--ink-soft);max-width:34rem}
+
+.cete{
+  position:relative;background:var(--sheet);border:2px solid var(--green);border-radius:var(--radius);
+  padding:1.25rem 1.25rem 1.1rem;display:flex;flex-direction:column;gap:0.6rem;max-width:22rem;
+}
+.cete::before{ /* borde perforado como de talonario */
+  content:"";position:absolute;inset:6px;border:1.5px dashed var(--line);border-radius:10px;pointer-events:none;
+}
+.cete-top{font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);font-weight:700}
+.cete-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-top:1px solid var(--line);padding-top:0.55rem}
+.cete-row span:first-child{color:var(--ink-soft);font-size:1.05rem}
+.cete-val{font-family:var(--font-display);font-weight:800;font-size:1.9rem;font-variant-numeric:tabular-nums}
+.cete-val.big{color:var(--green)}
+.cete-foot{font-size:1rem;color:var(--ink-soft)}
+
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:0.75rem;margin-top:1.5rem;padding:0.75rem 1rem;background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius)}
+.toolbar-label{font-weight:700;font-size:1.05rem}
+.seg{display:flex;gap:0.4rem}
+.seg button{
+  min-width:3.2rem;min-height:3rem;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);
+  font-family:var(--font-display);font-weight:700;cursor:pointer;line-height:1
+}
+.seg button[aria-pressed="true"]{background:var(--green-soft);border-color:var(--green);color:var(--ink)}
+.seg button:nth-child(1){font-size:1rem}.seg button:nth-child(2){font-size:1.25rem}.seg button:nth-child(3){font-size:1.5rem}
+
+/* ---------- Resumen e índice ---------- */
+.summary{background:var(--green-soft);border-radius:var(--radius);padding:1.5rem 1.4rem;margin-top:2rem}
+.summary h2{font-size:1.5rem;margin-bottom:0.75rem}
+.summary ul{margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.5rem}
+
+.index{display:grid;gap:0.85rem;margin-top:2rem}
+@media (min-width:640px){ .index{grid-template-columns:1fr 1fr} }
+.part-link{
+  display:flex;flex-direction:column;gap:0.2rem;text-decoration:none;color:var(--ink);
+  background:var(--sheet);border:2px solid var(--line);border-radius:var(--radius);padding:1rem 1.15rem;min-height:5.5rem
+}
+.part-link:hover{border-color:var(--green)}
+.part-num{font-size:0.9rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--green);font-weight:700}
+.part-title{font-family:var(--font-display);font-weight:700;font-size:1.35rem;line-height:1.2}
+.part-sub{color:var(--ink-soft);font-size:1.05rem}
+
+/* ---------- Partes y secciones ---------- */
+.part{margin-top:4rem;display:flex;flex-direction:column;gap:2.75rem}
+.part-head{border-top:4px solid var(--green-mid);padding-top:1rem;display:flex;flex-direction:column;gap:0.35rem}
+.part-head .part-num{font-size:1rem}
+.part-head h2{font-size:clamp(2rem,6vw,2.6rem)}
+section{display:flex;flex-direction:column;gap:1rem}
+.muted{color:var(--ink-soft)}
+.small{font-size:1.05rem}
+
+.callout{border-radius:var(--radius);padding:1.2rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.callout.gold{background:var(--marigold-soft)}
+.callout.green{background:var(--green-soft)}
+.callout .tag{font-size:0.9rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;color:var(--ink-soft)}
+
+.plain-list{margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.55rem}
+
+/* checklist */
+.checklist{list-style:none;margin:0;padding:0;background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius)}
+.checklist li+li{border-top:1px solid var(--line)}
+.checklist label{display:grid;grid-template-columns:auto 1fr;gap:0.9rem;align-items:start;padding:0.95rem 1.1rem;cursor:pointer}
+.checklist input{width:1.6rem;height:1.6rem;margin:0.15rem 0 0;accent-color:var(--green);cursor:pointer}
+.checklist .what{font-weight:700}
+.checklist .why{display:block;color:var(--ink-soft);font-size:1.05rem}
+.checklist input:checked + span .what{text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px}
+.progress{display:flex;align-items:center;gap:0.9rem;font-weight:700}
+.bar{flex:1;height:0.75rem;background:var(--green-soft);border-radius:99px;overflow:hidden}
+.bar > i{display:block;height:100%;width:0;background:var(--green);border-radius:99px;transition:width .3s}
+
+/* pasos */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:3.4rem 1fr;gap:1rem;position:relative;padding-bottom:1.75rem}
+.step:not(:last-child)::before{content:"";position:absolute;left:1.65rem;top:3.4rem;bottom:0.2rem;width:3px;background:var(--line);border-radius:3px}
+.step-num{
+  width:3.4rem;height:3.4rem;border-radius:50%;background:var(--marigold);color:var(--on-marigold);
+  display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:1.6rem
+}
+.step-body{display:flex;flex-direction:column;gap:0.45rem;min-width:0;padding-top:0.35rem}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:0.95em;background:var(--green-soft);padding:0.05em 0.35em;border-radius:5px;overflow-wrap:anywhere}
+
+.inperson{background:var(--sheet);border:2px dashed var(--green);border-radius:var(--radius);padding:1.2rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+
+/* subasta */
+.flow{display:grid;gap:0.6rem}
+@media (min-width:640px){ .flow{grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch} }
+.flow-box{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:0.9rem 1rem;display:flex;flex-direction:column;gap:0.2rem;min-width:0}
+.flow-box b{font-family:var(--font-display);font-size:1.15rem}
+.flow-box span{color:var(--ink-soft);font-size:1.02rem;line-height:1.45}
+.flow-box.you{background:var(--green-soft);border:2px solid var(--green-mid)}
+.arrow{display:grid;place-items:center;color:var(--ink-soft);font-size:1.6rem;font-weight:700}
+@media (max-width:639px){ .arrow{transform:rotate(90deg);height:1.6rem} }
+
+.next{background:var(--marigold-soft);border:2px solid var(--marigold);border-radius:var(--radius);padding:1.2rem 1.25rem;display:flex;flex-direction:column;gap:0.5rem}
+.next .tag{font-size:0.9rem;letter-spacing:0.07em;text-transform:uppercase;font-weight:700}
+.next p.big{font-family:var(--font-display);font-size:1.45rem;font-weight:700;line-height:1.3}
+
+.week{list-style:none;margin:0;padding:0;display:grid;gap:0.6rem}
+@media (min-width:700px){ .week{grid-template-columns:repeat(5,1fr)} }
+.day{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:0.85rem 0.9rem;display:flex;flex-direction:column;gap:0.3rem;min-width:0}
+.day .dname{font-family:var(--font-display);font-weight:700;font-size:1.2rem}
+.day .ddate{font-size:0.95rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.day .dwhat{font-size:1.02rem;line-height:1.4}
+.day.deadline{background:var(--marigold-soft);border:2px solid var(--marigold)}
+.day.auction{background:var(--green-soft);border:2px solid var(--green)}
+.day.settle{background:var(--sheet);border:2px solid var(--green-mid)}
+.day.quiet .dwhat{color:var(--ink-soft)}
+
+/* instrumentos */
+.instr{display:flex;flex-direction:column;gap:0.9rem}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:1.15rem 1.25rem;display:flex;flex-direction:column;gap:0.55rem}
+.card-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:0.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:0.4rem}
+.chip{font-size:0.92rem;font-weight:700;padding:0.2rem 0.65rem;border-radius:99px;background:var(--green-soft);color:var(--ink);white-space:nowrap}
+.chip.gold{background:var(--marigold-soft)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:0.25rem 1rem;margin:0}
+.facts dt{color:var(--ink-soft);font-size:1.02rem}
+.facts dd{margin:0;font-size:1.05rem;min-width:0}
+
+.table-wrap{overflow-x:auto;background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:1.08rem}
+th,td{text-align:left;padding:0.75rem 1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+th{font-size:0.92rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--ink-soft)}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.rbar{height:0.7rem;background:var(--green-soft);border-radius:99px;min-width:6rem;position:relative}
+.rbar i{position:absolute;inset:0 auto 0 0;background:var(--green);border-radius:99px}
+
+/* calculadora */
+.calc{background:var(--sheet);border:2px solid var(--green);border-radius:var(--radius);padding:1.25rem;display:grid;gap:1.25rem}
+@media (min-width:720px){ .calc{grid-template-columns:1fr 1fr} }
+.calc form{display:flex;flex-direction:column;gap:1rem;min-width:0}
+.field{display:flex;flex-direction:column;gap:0.35rem}
+.field label{font-weight:700}
+.field .hint{font-size:0.98rem;color:var(--ink-soft)}
+.field input,.field select{
+  font:inherit;font-size:1.3rem;padding:0.6rem 0.8rem;min-height:3.25rem;border-radius:10px;border:2px solid var(--line);
+  background:var(--paper);color:var(--ink);width:100%
+}
+.field input:focus,.field select:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px var(--marigold)}
+.money{position:relative}
+.money span{position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);font-size:1.3rem;color:var(--ink-soft);pointer-events:none}
+.money input{padding-left:1.9rem}
+.err{color:var(--alert);font-weight:700;font-size:1.02rem}
+.result{background:var(--green-soft);border-radius:12px;padding:1.1rem 1.15rem;display:flex;flex-direction:column;gap:0.75rem;min-width:0}
+.result .rlabel{font-size:1.05rem;color:var(--ink-soft)}
+.result .rbig{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,7vw,2.6rem);color:var(--green);font-variant-numeric:tabular-nums;line-height:1.1}
+.rlines{display:grid;grid-template-columns:1fr auto;gap:0.35rem 1rem;margin:0;border-top:1px solid var(--line);padding-top:0.7rem}
+.rlines dt{font-size:1.05rem}
+.rlines dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.rnote{font-size:1rem;color:var(--ink-soft)}
+
+/* fraude */
+.alert{background:var(--alert-soft);border:3px solid var(--alert);border-radius:var(--radius);padding:1.35rem 1.35rem;display:flex;flex-direction:column;gap:0.9rem}
+.alert h2{color:var(--alert)}
+.rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0.8rem}
+.rules li{display:grid;grid-template-columns:2.2rem 1fr;gap:0.75rem;align-items:start}
+.rules .x{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--alert);color:var(--alert-soft);display:grid;place-items:center;font-weight:800;font-size:1.2rem;line-height:1}
+
+/* ayuda */
+.contacts{display:grid;gap:0.85rem}
+.contact{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:1rem 1.15rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.75rem}
+.contact .who{display:flex;flex-direction:column;gap:0.15rem;min-width:0}
+.contact .who b{font-family:var(--font-display);font-size:1.15rem}
+.contact .phone{font-family:var(--font-display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums;user-select:all;color:var(--green)}
+.btn{
+  font:inherit;font-weight:700;font-size:1.05rem;min-height:3rem;padding:0.5rem 1.1rem;border-radius:10px;cursor:pointer;
+  border:2px solid var(--green);background:var(--sheet);color:var(--green)
+}
+.btn:hover{background:var(--green-soft)}
+
+/* glosario */
+.gloss{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius)}
+.gloss details+details{border-top:1px solid var(--line)}
+.gloss summary{cursor:pointer;padding:0.9rem 1.15rem;font-weight:700;font-size:1.2rem;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center;min-height:3.25rem}
+.gloss summary::-webkit-details-marker{display:none}
+.gloss summary::after{content:"+";font-family:var(--font-display);font-size:1.6rem;color:var(--green);line-height:1}
+.gloss details[open] summary::after{content:"–"}
+.gloss details p{padding:0 1.15rem 1rem;color:var(--ink-soft)}
+
+footer{margin-top:4rem;border-top:1px solid var(--line);padding-top:1.5rem;display:flex;flex-direction:column;gap:0.75rem;font-size:1.02rem;color:var(--ink-soft)}
+footer ul{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.3rem}
+
+.totop{
+  position:fixed;right:1rem;bottom:calc(1rem + env(safe-area-inset-bottom, 0px));z-index:5;
+  min-height:3.25rem;padding:0.5rem 1.1rem;border-radius:99px;border:2px solid var(--green);
+  background:var(--sheet);color:var(--green);font:inherit;font-weight:700;font-size:1.05rem;text-decoration:none;display:flex;align-items:center;box-shadow:0 2px 10px rgba(46,125,91,0.15)
+}
+</style>
+</head>
+<body id="top">
+<div class="wrap">
+
+  <header class="stack-lg">
+    <div class="hero">
+      <div class="stack">
+        <p class="eyebrow">Guía sencilla · Revisada en octubre de 2026</p>
+        <h1>Cetes paso a paso</h1>
+        <p class="lead">Cómo abrir su cuenta en Cetes Directo, cómo funciona la subasta de cada martes y cómo invertir su dinero con el Gobierno de México. Explicado con calma y sin palabras complicadas.</p>
+      </div>
+      <figure class="cete" aria-label="Ejemplo de un Cete">
+        <span class="cete-top">Así funciona un Cete</span>
+        <div class="cete-row"><span>Usted paga hoy</span><span class="cete-val">$9.95</span></div>
+        <div class="cete-row"><span>Le pagan en 28 días</span><span class="cete-val big">$10.00</span></div>
+        <figcaption class="cete-foot">Esos casi 5 centavos de diferencia son su ganancia, por cada Cete. Ejemplo con la tasa de 6.13% de agosto de 2026.</figcaption>
+      </figure>
+    </div>
+
+    <div class="toolbar" role="group" aria-label="Tamaño de letra">
+      <span class="toolbar-label">Tamaño de letra:</span>
+      <div class="seg">
+        <button type="button" id="fs-1" data-scale="100%" aria-pressed="true" aria-label="Letra normal">A</button>
+        <button type="button" id="fs-2" data-scale="115%" aria-pressed="false" aria-label="Letra grande">A</button>
+        <button type="button" id="fs-3" data-scale="132%" aria-pressed="false" aria-label="Letra muy grande">A</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary">
+    <h2>Lo esencial, en cinco frases</h2>
+    <ul>
+      <li>Con los Cetes usted le <strong>presta dinero al gobierno</strong> y se lo regresan con intereses.</li>
+      <li>Puede empezar con <strong>$100 pesos</strong> y <strong>no le cobran comisiones</strong>.</li>
+      <li>Las compras se hacen <strong>una vez por semana, los martes</strong>, en una subasta.</li>
+      <li>Su dinero solo puede regresar a <strong>la cuenta de banco a su nombre</strong> que usted registre.</li>
+      <li>Nadie de Cetes Directo le va a <strong>pedir su contraseña</strong> por teléfono o WhatsApp.</li>
+    </ul>
+  </div>
+
+  <nav class="index" aria-label="Partes de la guía">
+    <a class="part-link" href="#parte-1"><span class="part-num">Parte 1</span><span class="part-title">Entender los Cetes</span><span class="part-sub">Qué son y qué tan seguros son</span></a>
+    <a class="part-link" href="#parte-2"><span class="part-num">Parte 2</span><span class="part-title">Abrir su cuenta</span><span class="part-sub">Lo que necesita y los 7 pasos</span></a>
+    <a class="part-link" href="#parte-3"><span class="part-num">Parte 3</span><span class="part-title">Invertir</span><span class="part-sub">Depositar, la subasta, opciones y calculadora</span></a>
+    <a class="part-link" href="#parte-4"><span class="part-num">Parte 4</span><span class="part-title">Cuidar su dinero</span><span class="part-sub">Retiros, impuestos, fraudes y ayuda</span></a>
+  </nav>
+
+  <!-- ================= PARTE 1 ================= -->
+  <div class="part" id="parte-1">
+    <div class="part-head">
+      <span class="part-num">Parte 1 de 4</span>
+      <h2>Entender los Cetes</h2>
+    </div>
+
+    <section id="que-son">
+      <h3>¿Qué son los Cetes?</h3>
+      <p><strong>Cetes</strong> quiere decir <em>Certificados de la Tesorería de la Federación</em>. Son como un pagaré del gobierno: usted le presta dinero por un tiempo y, al terminar, se lo devuelven con una ganancia.</p>
+      <div class="callout gold">
+        <span class="tag">Un ejemplo de la vida diaria</span>
+        <p>Imagine que le presta $1,000 a un vecino muy cumplido. Él le dice: “En un mes le regreso $1,005”. Con los Cetes pasa lo mismo, solo que quien pide prestado es el Gobierno de México.</p>
+      </div>
+      <p><strong>Cetes Directo</strong> es la página y la aplicación oficial donde usted compra Cetes sin intermediarios. Es del Gobierno Federal y la opera Nacional Financiera (Nafin), un banco del gobierno.</p>
+      <p>Cada Cete vale $10 al final del plazo. Usted lo compra un poco más barato y, cuando se cumple el plazo, le pagan los $10 completos.</p>
+      <div class="callout green">
+        <span class="tag">Muy importante: la tasa es “por año”</span>
+        <p>Cuando lee “Cetes a 28 días al 6%”, ese 6% es lo que ganaría <strong>en un año completo</strong>. En 28 días gana solo la parte que corresponde, que es como <strong>medio por ciento</strong>. Así, $10,000 a 28 días le dejan unos $40 a $48 pesos.</p>
+      </div>
+    </section>
+
+    <section id="seguro">
+      <h3>¿Es seguro?</h3>
+      <ul class="plain-list">
+        <li><strong>Lo respalda el Gobierno de México.</strong> Es de las inversiones con menos riesgo en el país. Ninguna inversión tiene riesgo cero, pero este es muy bajo.</li>
+        <li><strong>Su dinero solo puede salir a su propia cuenta de banco,</strong> la que usted registró a su nombre. Eso lo protege contra robos.</li>
+        <li><strong>La ganancia es moderada.</strong> No es para hacerse rico, es para que su dinero crezca un poco más rápido que los precios. A mediados de 2026 los Cetes pagaban entre 6% y 7% al año y la inflación andaba cerca de 3%.</li>
+        <li><strong>Hay que esperar el plazo.</strong> Si necesita el dinero antes, hay opciones, pero lo ideal es dejarlo el tiempo que eligió.</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- ================= PARTE 2 ================= -->
+  <div class="part" id="parte-2">
+    <div class="part-head">
+      <span class="part-num">Parte 2 de 4</span>
+      <h2>Abrir su cuenta</h2>
+    </div>
+
+    <section id="necesita">
+      <h3>Lo que necesita tener a la mano</h3>
+      <p>Junte todo esto antes de empezar. Puede ir marcando lo que ya tiene; la página lo recuerda en este aparato.</p>
+      <div class="progress" aria-live="polite"><span id="chk-count">0 de 9 listos</span><div class="bar"><i id="chk-bar"></i></div></div>
+      <ul class="checklist" id="checklist">
+        <li><label><input type="checkbox" id="req-edad"><span><span class="what">Ser mayor de 18 años y vivir en México</span><span class="why">No hay edad máxima. Una persona de 80 años puede abrir su cuenta.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-curp"><span><span class="what">Su CURP</span><span class="why">Son 18 letras y números. Viene impresa en su credencial del INE.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-ine"><span><span class="what">Su credencial del INE vigente</span><span class="why">Sirve para confirmar que usted es usted y para poder invertir más de $26,000 al mes.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-clabe"><span><span class="what">Una cuenta de banco a su nombre y su CLABE</span><span class="why">La CLABE son 18 números. Viene en su estado de cuenta o en la app de su banco. Puede ser la cuenta donde recibe su pensión, si está a su nombre.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-correo"><span><span class="what">Un correo electrónico que usted pueda abrir</span><span class="why">Ahí le llegan avisos y el código para confirmar su cuenta.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-cel"><span><span class="what">Un celular con número propio</span><span class="why">Para recibir mensajes de seguridad.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-domicilio"><span><span class="what">Su domicilio completo</span><span class="why">Calle, número, colonia, código postal y municipio.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-benef"><span><span class="what">Los nombres de sus beneficiarios</span><span class="why">Las personas que recibirían su dinero si a usted le pasa algo, y qué porcentaje le toca a cada una.</span></span></label></li>
+        <li><label><input type="checkbox" id="req-rfc"><span><span class="what">Su RFC, si tiene uno</span><span class="why">Téngalo a la mano por si se lo piden.</span></span></label></li>
+      </ul>
+      <div class="callout green">
+        <span class="tag">Consejo</span>
+        <p>Pida a un familiar de confianza que le acompañe la primera vez, sentado a su lado. Pero <strong>usted escriba sus contraseñas</strong> y guárdelas solo usted.</p>
+      </div>
+    </section>
+
+    <section id="abrir">
+      <h3>Los 7 pasos para abrir su cuenta</h3>
+      <p class="muted">Se hace por internet, desde el celular o la computadora. Toma más o menos media hora si tiene todo a la mano.</p>
+      <ol class="steps">
+        <li class="step"><span class="step-num" aria-hidden="true">1</span><div class="step-body">
+          <h3>Entre a la página oficial</h3>
+          <p>Escriba usted mismo, letra por letra, <span class="mono">www.cetesdirecto.com</span>. También puede descargar la aplicación <strong>cetesdirecto</strong> en la tienda de su celular (Play Store o App Store).</p>
+          <p>Toque el botón que dice <strong>“Abre tu cuenta”</strong>.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">2</span><div class="step-body">
+          <h3>Cree su usuario y contraseña</h3>
+          <p>Escriba su nombre completo tal como aparece en su INE, su correo y su celular. Invente una contraseña que no sea su fecha de nacimiento.</p>
+          <p class="muted small">Apúntela en una libreta que guarde en casa, nunca en un papelito dentro de la cartera.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">3</span><div class="step-body">
+          <h3>Confirme su correo</h3>
+          <p>Le llega un mensaje con un código o un enlace. Si no lo ve, busque en la carpeta de “Correo no deseado” o “Spam”.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">4</span><div class="step-body">
+          <h3>Llene sus datos personales</h3>
+          <p>Le pedirán su CURP, su domicilio, sus teléfonos y unas preguntas de seguridad. Esas preguntas le servirán si un día olvida su contraseña, así que elija respuestas que usted recuerde siempre.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">5</span><div class="step-body">
+          <h3>Registre su cuenta de banco</h3>
+          <p>Escriba su CLABE de 18 números. Revísela número por número: <strong>a esta cuenta le van a regresar su dinero</strong>, así que debe estar a su nombre.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">6</span><div class="step-body">
+          <h3>Ponga a sus beneficiarios</h3>
+          <p>Escriba quiénes recibirían su dinero si a usted le pasa algo y cuánto le toca a cada uno. Los porcentajes deben sumar 100%. Esto le ahorra trámites a su familia.</p>
+        </div></li>
+        <li class="step"><span class="step-num" aria-hidden="true">7</span><div class="step-body">
+          <h3>Acepte el contrato y valide su identidad</h3>
+          <p>Lea y acepte el contrato. ¡Listo! Su cuenta empieza con un límite: puede meter hasta <strong>3,000 UDIS al mes, unos $26,000 pesos</strong>.</p>
+          <p>Si quiere invertir más, busque en la aplicación la opción para validar su identidad o subir de nivel. Le pedirá los datos de su INE (también se puede con la e.firma del SAT). Ya validada, puede tener hasta <strong>$10 millones de pesos</strong>.</p>
+        </div></li>
+      </ol>
+
+      <div class="inperson">
+        <h3>¿Prefiere que le atienda una persona?</h3>
+        <p>En sucursales de <strong>Finabien</strong> (Financiera para el Bienestar, antes Telecomm) le pueden ayudar a abrir su cuenta de Cetes Directo <strong>sin costo</strong>. Lleve su INE original y una copia, y el número de su tarjeta de débito o su CLABE.</p>
+        <p class="muted small">Llame antes a su sucursal para confirmar que ofrece este servicio.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PARTE 3 ================= -->
+  <div class="part" id="parte-3">
+    <div class="part-head">
+      <span class="part-num">Parte 3 de 4</span>
+      <h2>Invertir</h2>
+    </div>
+
+    <section id="depositar">
+      <h3>Poner dinero en su cuenta</h3>
+      <ul class="plain-list">
+        <li>En la aplicación o página de Cetes Directo, entre a la opción para <strong>depositar</strong>. Ahí le dicen a qué cuenta mandar el dinero y qué datos poner.</li>
+        <li>Desde la app de su banco, haga una <strong>transferencia (SPEI)</strong> desde su cuenta a su nombre.</li>
+        <li>Mientras decide qué comprar, su dinero espera en <strong>BONDDIA</strong>, un fondo donde gana un poquito cada día.</li>
+        <li>Por ahora conviene depositar <strong>entre semana, de 6 de la mañana a 6 de la tarde</strong>. Cetes Directo anunció que planea recibir depósitos a cualquier hora.</li>
+      </ul>
+      <div class="callout green">
+        <span class="tag">Para ahorrar sin acordarse</span>
+        <p>Puede activar el <strong>ahorro recurrente</strong>: Cetes Directo toma una cantidad fija de su banco cada semana, quincena o mes, desde $100. Por ejemplo, $500 el día que le cae su pensión.</p>
+      </div>
+    </section>
+
+    <section id="subasta">
+      <h3>La subasta: así se compran los Cetes</h3>
+      <p>Cada martes, el <strong>Banco de México</strong> hace una subasta en nombre del gobierno. Es parecido a un remate: el gobierno ofrece Cetes, los bancos dicen a qué tasa los quieren comprar, y de ahí sale la tasa de esa semana.</p>
+      <div class="flow" aria-label="Cómo se decide la tasa">
+        <div class="flow-box"><b>Los bancos ofrecen</b><span>Dicen cuántos Cetes quieren y a qué tasa.</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="flow-box"><b>Banxico decide</b><span>Acepta las ofertas y se publica la tasa de la semana.</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="flow-box you"><b>A usted le toca esa tasa</b><span>Sin pujar ni negociar nada.</span></div>
+      </div>
+      <p><strong>Usted no tiene que hacer ofertas.</strong> Cetes Directo junta las órdenes de todas las personas y usted recibe la tasa que resultó en la subasta.</p>
+
+      <div class="next" id="next-box" aria-live="polite">
+        <span class="tag">Su próxima oportunidad</span>
+        <p class="big" id="next-main">Si da su orden de compra hoy, entra en la subasta del próximo martes.</p>
+        <p id="next-sub">Tiene hasta el lunes a la 1:00 de la tarde.</p>
+      </div>
+
+      <h3>La semana de la subasta</h3>
+      <ol class="week" aria-label="Calendario de la semana">
+        <li class="day deadline"><span class="dname">Lunes</span><span class="ddate" id="d-lun"></span><span class="dwhat"><strong>Antes de la 1:00 de la tarde:</strong> último momento para dar su orden.</span></li>
+        <li class="day auction"><span class="dname">Martes</span><span class="ddate" id="d-mar"></span><span class="dwhat"><strong>Subasta.</strong> Por la tarde se conoce la tasa.</span></li>
+        <li class="day quiet"><span class="dname">Miércoles</span><span class="ddate" id="d-mie"></span><span class="dwhat">Usted no hace nada. Solo espera.</span></li>
+        <li class="day settle"><span class="dname">Jueves</span><span class="ddate" id="d-jue"></span><span class="dwhat"><strong>Sus Cetes aparecen</strong> en su cuenta. Aquí empieza a contar el plazo.</span></li>
+        <li class="day quiet"><span class="dname">Viernes</span><span class="ddate" id="d-vie"></span><span class="dwhat">Si el lunes siguiente es festivo, la orden se da hoy.</span></li>
+      </ol>
+      <p class="muted small">Si da la orden después del lunes a la 1, no pasa nada: entra en la subasta de la semana siguiente y su dinero espera en BONDDIA ganando un poco.</p>
+
+      <h3>Cómo dar la orden de compra</h3>
+      <ul class="plain-list">
+        <li>Entre a su cuenta y busque la opción para <strong>invertir</strong> o comprar.</li>
+        <li>Elija <strong>qué</strong> quiere (por ejemplo, Cetes), el <strong>plazo</strong> (por ejemplo, 28 días) y la <strong>cantidad</strong>.</li>
+        <li>Decida si quiere <strong>reinversión automática</strong>: al terminar el plazo, se vuelve a invertir solo.</li>
+        <li>Revise todo y confirme. Le aparece una pantalla de confirmación; puede tomarle foto.</li>
+      </ul>
+    </section>
+
+    <section id="opciones">
+      <h3>¿En qué puede invertir?</h3>
+      <p>Cetes Directo tiene varias opciones. Todas son del gobierno. Cambian en el plazo y en la forma de pagarle.</p>
+      <div class="instr">
+        <article class="card">
+          <div class="card-head"><h3>BONDDIA</h3><div class="chips"><span class="chip gold">Lo saca cualquier día hábil</span></div></div>
+          <p>Un fondo donde su dinero gana un poco cada día. Es donde espera su dinero mientras no lo invierte en otra cosa.</p>
+          <dl class="facts"><dt>Bueno para</dt><dd>Su guardadito para emergencias.</dd></dl>
+        </article>
+        <article class="card">
+          <div class="card-head"><h3>Cetes</h3><div class="chips"><span class="chip">28 · 91 · 182 · 364 días</span></div></div>
+          <p>Le pagan todo junto al final del plazo. Los de 28 días son los más usados porque el dinero se libera cada mes.</p>
+          <dl class="facts"><dt>Bueno para</dt><dd>Dinero que no va a usar durante ese tiempo.</dd></dl>
+        </article>
+        <article class="card">
+          <div class="card-head"><h3>Bondes F</h3><div class="chips"><span class="chip">Plazos de un año o más</span></div></div>
+          <p>Su tasa se ajusta sola con el tiempo. Le pagan intereses cada 28 días.</p>
+          <dl class="facts"><dt>Bueno para</dt><dd>Quien quiere recibir intereses seguido, sin tocar el capital.</dd></dl>
+        </article>
+        <article class="card">
+          <div class="card-head"><h3>Bonos M (tasa fija)</h3><div class="chips"><span class="chip">3 a 30 años</span></div></div>
+          <p>Tasa fija. Le pagan intereses cada seis meses y el capital al final. Si los vende antes de tiempo, el precio puede subir o bajar.</p>
+          <dl class="facts"><dt>Bueno para</dt><dd>Dinero que de verdad no va a necesitar en muchos años.</dd></dl>
+        </article>
+        <article class="card">
+          <div class="card-head"><h3>Udibonos</h3><div class="chips"><span class="chip">3 a 30 años</span><span class="chip gold">Protegen contra la inflación</span></div></div>
+          <p>Están en UDIS, que suben cuando suben los precios. Le pagan intereses cada seis meses.</p>
+          <dl class="facts"><dt>Bueno para</dt><dd>Cuidar a largo plazo que los precios no se coman su ahorro.</dd></dl>
+        </article>
+      </div>
+
+      <div class="callout gold">
+        <span class="tag">Una forma común de organizarse</span>
+        <p>Muchas personas dividen su dinero: una parte en <strong>BONDDIA</strong> para emergencias y otra en <strong>Cetes de 28 o 91 días con reinversión automática</strong>. Los plazos de años son solo para dinero que no van a necesitar.</p>
+        <p class="small muted">Esta guía es informativa. No es una recomendación personal de inversión.</p>
+      </div>
+
+      <h3>Tasas de referencia</h3>
+      <p class="muted small">Resultados de subastas de julio y agosto de 2026. Cambian cada semana: la tasa del día aparece en la portada de Cetes Directo y en banxico.org.mx.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Opción</th><th>Tasa anual</th><th style="width:40%">Comparación</th></tr></thead>
+          <tbody>
+            <tr><td>Cetes 28 días</td><td class="num">6.13%</td><td><div class="rbar" role="img" aria-label="6.13%"><i style="width:61.3%"></i></div></td></tr>
+            <tr><td>Cetes 91 días</td><td class="num">6.60%</td><td><div class="rbar" role="img" aria-label="6.60%"><i style="width:66%"></i></div></td></tr>
+            <tr><td>Cetes 182 días</td><td class="num">6.75%</td><td><div class="rbar" role="img" aria-label="6.75%"><i style="width:67.5%"></i></div></td></tr>
+            <tr><td>Cetes 364 días</td><td class="num">6.93%</td><td><div class="rbar" role="img" aria-label="6.93%"><i style="width:69.3%"></i></div></td></tr>
+            <tr><td>Bonos M 20 años</td><td class="num">9.64%</td><td><div class="rbar" role="img" aria-label="9.64%"><i style="width:96.4%"></i></div></td></tr>
+            <tr><td>Udibonos 20 años</td><td class="num">4.70%</td><td class="small muted">más lo que suba la inflación</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted small">La barra va de 0% a 10%. Fechas: Cetes 28 y 91 días y Bonos M, subasta del 25 de agosto; Cetes 182 y 364 días y Udibonos, subasta del 21 de julio.</p>
+    </section>
+
+    <section id="calculadora">
+      <h3>¿Cuánto ganaría? Calculadora</h3>
+      <p>Escriba una cantidad y elija el plazo. La tasa se llena sola con la de referencia; puede cambiarla por la tasa de esta semana.</p>
+      <div class="calc">
+        <form id="calc-form" novalidate>
+          <div class="field">
+            <label for="c-monto">¿Cuánto quiere invertir?</label>
+            <div class="money"><span aria-hidden="true">$</span><input id="c-monto" type="number" inputmode="decimal" min="100" step="100" value="10000"></div>
+            <span class="err" id="c-err" hidden>El mínimo para invertir es $100 pesos.</span>
+          </div>
+          <div class="field">
+            <label for="c-plazo">¿Por cuánto tiempo?</label>
+            <select id="c-plazo">
+              <option value="28">Cetes a 28 días (casi un mes)</option>
+              <option value="91">Cetes a 91 días (tres meses)</option>
+              <option value="182">Cetes a 182 días (seis meses)</option>
+              <option value="364">Cetes a 364 días (un año)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="c-tasa">Tasa anual (%)</label>
+            <input id="c-tasa" type="number" inputmode="decimal" min="0" max="30" step="0.01" value="6.13">
+            <span class="hint">Referencia de 2026. La de hoy está en la portada de Cetes Directo.</span>
+          </div>
+        </form>
+        <div class="result" aria-live="polite">
+          <span class="rlabel">Al terminar el plazo le regresarían, aproximadamente:</span>
+          <span class="rbig" id="r-total">$10,040.78</span>
+          <dl class="rlines">
+            <dt>Su dinero</dt><dd id="r-capital">$10,000.00</dd>
+            <dt>Ganancia</dt><dd id="r-gan">$47.68</dd>
+            <dt>Impuesto que le retienen</dt><dd id="r-isr">−$6.90</dd>
+            <dt><strong>Ganancia limpia</strong></dt><dd id="r-neta">$40.78</dd>
+          </dl>
+          <p class="rnote" id="r-fechas">Si compra en la próxima subasta, su dinero vence alrededor del jueves…</p>
+          <p class="rnote">Es un cálculo aproximado. El resultado real puede variar unos centavos o pesos.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PARTE 4 ================= -->
+  <div class="part" id="parte-4">
+    <div class="part-head">
+      <span class="part-num">Parte 4 de 4</span>
+      <h2>Cuidar su dinero</h2>
+    </div>
+
+    <section id="vence">
+      <h3>Cuando se cumple el plazo</h3>
+      <ul class="plain-list">
+        <li><strong>Si eligió reinversión automática:</strong> Cetes Directo vuelve a comprar por usted, con la tasa de esa semana. Es lo más cómodo y no tiene que hacer nada.</li>
+        <li><strong>Si no la eligió:</strong> el dinero queda disponible en su cuenta de Cetes Directo y lo puede mandar a su banco cuando quiera.</li>
+        <li>Lo que sobra de cada compra, porque los Cetes se compran completos de $10 en $10, se queda en BONDDIA.</li>
+      </ul>
+    </section>
+
+    <section id="retirar">
+      <h3>Sacar su dinero</h3>
+      <ul class="plain-list">
+        <li>Su dinero <strong>solo puede ir a la cuenta de banco a su nombre</strong> que registró. Nadie puede mandarlo a otra cuenta.</li>
+        <li>Entre a la opción de retiro, escriba la cantidad y confirme.</li>
+        <li>Si lo pide en <strong>día hábil, entre 6 de la mañana y 1 de la tarde</strong>, le llega a su banco ese mismo día.</li>
+        <li>Lo que puede sacar rápido es lo que está en BONDDIA. Los Cetes ya comprados se pagan cuando vencen. Se pueden vender antes, pero podría recibir un poco menos de lo esperado.</li>
+      </ul>
+    </section>
+
+    <section id="impuestos">
+      <h3>Impuestos</h3>
+      <p>Las ganancias pagan Impuesto Sobre la Renta (ISR), pero <strong>Cetes Directo lo cobra solo</strong>. Usted no tiene que ir a pagar nada.</p>
+      <ul class="plain-list">
+        <li>En 2026 le retienen <strong>0.90% al año sobre el dinero invertido</strong>, no sobre la ganancia.</li>
+        <li>Ejemplo: si tiene <strong>$100,000</strong> invertidos todo el año, le retienen unos <strong>$900</strong>.</li>
+        <li>Ese cobro es un adelanto. Si usted hace declaración anual, ahí se hace la cuenta final con la constancia de intereses que le da Cetes Directo. Si tiene dudas, pregunte a un contador.</li>
+      </ul>
+    </section>
+
+    <section class="alert" id="fraudes">
+      <h2>Cuidado con los fraudes</h2>
+      <p>Hay personas que se hacen pasar por Cetes Directo. Recuerde estas reglas:</p>
+      <ul class="rules">
+        <li><span class="x" aria-hidden="true">✕</span><span><strong>Nunca dé su contraseña ni códigos</strong> por teléfono, WhatsApp, mensaje o correo. Cetes Directo no se los va a pedir.</span></li>
+        <li><span class="x" aria-hidden="true">✕</span><span><strong>No abra enlaces que le manden por mensaje.</strong> Escriba usted mismo <span class="mono">www.cetesdirecto.com</span>.</span></li>
+        <li><span class="x" aria-hidden="true">✕</span><span><strong>No deposite a cuentas que le den por teléfono.</strong> Los datos para depositar solo aparecen dentro de su cuenta.</span></li>
+        <li><span class="x" aria-hidden="true">✕</span><span><strong>Desconfíe de ganancias “garantizadas” muy altas.</strong> Si le prometen 20% o 30% al año, es fraude.</span></li>
+        <li><span class="x" aria-hidden="true">✕</span><span><strong>Si le llaman con prisa o miedo</strong> (“su cuenta se va a cerrar”), cuelgue y llame usted al número oficial.</span></li>
+      </ul>
+    </section>
+
+    <section id="ayuda">
+      <h3>Si necesita ayuda</h3>
+      <div class="contacts">
+        <div class="contact">
+          <div class="who"><b>Centro de atención Cetes Directo</b><span class="muted small">Llamada sin costo. Lunes a viernes de 9 a 18 h y sábados de 9 a 14 h, según su ficha oficial en la tienda de apps.</span><span class="phone" id="tel-cetes">800 238 3734</span></div>
+          <button class="btn" type="button" data-copy="8002383734" data-label="Copiar número">Copiar número</button>
+        </div>
+        <div class="contact">
+          <div class="who"><b>CONDUSEF (quejas contra instituciones financieras)</b><span class="phone">55 5340 0999</span></div>
+          <button class="btn" type="button" data-copy="5553400999" data-label="Copiar número">Copiar número</button>
+        </div>
+        <div class="contact">
+          <div class="who"><b>Página oficial</b><span class="muted small">Escríbala usted mismo en el navegador.</span><span class="phone" style="font-size:1.3rem">www.cetesdirecto.com</span></div>
+          <a class="btn" href="https://www.cetesdirecto.com" target="_blank" rel="noopener">Abrir página</a>
+        </div>
+      </div>
+      <p class="muted small">Antes de llamar, confirme los horarios en la página oficial; pueden cambiar.</p>
+    </section>
+
+    <section id="palabras">
+      <h3>Palabras que va a ver</h3>
+      <div class="gloss">
+        <details><summary>BONDDIA</summary><p>Fondo de Cetes Directo donde su dinero espera y gana un poco cada día. Lo puede sacar cualquier día hábil.</p></details>
+        <details><summary>Banxico</summary><p>Banco de México. Hace la subasta de cada martes en nombre del gobierno.</p></details>
+        <details><summary>Beneficiario</summary><p>Persona que usted elige para recibir su dinero si usted fallece.</p></details>
+        <details><summary>CLABE</summary><p>Número de 18 dígitos de su cuenta de banco. Sirve para recibir y mandar transferencias.</p></details>
+        <details><summary>CURP</summary><p>Clave Única de Registro de Población. Son 18 letras y números y viene en su INE.</p></details>
+        <details><summary>Día hábil</summary><p>De lunes a viernes, sin contar los días festivos de los bancos.</p></details>
+        <details><summary>e.firma</summary><p>Firma electrónica que da el SAT para hacer trámites oficiales por internet.</p></details>
+        <details><summary>ISR</summary><p>Impuesto Sobre la Renta. Se cobra sobre lo que usted gana.</p></details>
+        <details><summary>Nafin</summary><p>Nacional Financiera, el banco del gobierno que opera Cetes Directo.</p></details>
+        <details><summary>Plazo</summary><p>Tiempo que su dinero se queda invertido: 28 días, 91 días, un año, etcétera.</p></details>
+        <details><summary>Reinversión automática</summary><p>Al terminar el plazo, su dinero se vuelve a invertir solo, sin que usted haga nada.</p></details>
+        <details><summary>SPEI</summary><p>El sistema para mandar dinero de un banco a otro en pocos minutos.</p></details>
+        <details><summary>Subasta</summary><p>La venta de cada martes donde se decide la tasa de los Cetes de esa semana.</p></details>
+        <details><summary>Tasa</summary><p>El porcentaje de ganancia. Siempre se dice por año, aunque el plazo sea más corto.</p></details>
+        <details><summary>UDI</summary><p>Unidad de Inversión. Su valor sube con la inflación. En 2026, 3,000 UDIS equivalen a unos $26,000 pesos.</p></details>
+        <details><summary>Vencimiento</summary><p>El día en que termina el plazo y le pagan.</p></details>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Guía informativa preparada en octubre de 2026 con información pública. Las tasas, límites y horarios pueden cambiar: confirme siempre en Cetes Directo. No es asesoría financiera ni fiscal.</p>
+    <ul>
+      <li><a href="https://www.cetesdirecto.com" target="_blank" rel="noopener">Cetes Directo (sitio oficial)</a></li>
+      <li><a href="https://www.banxico.org.mx" target="_blank" rel="noopener">Banco de México: resultados de las subastas</a></li>
+      <li><a href="https://siemprealdia.co/mexico/fiscal/retencion-de-isr-en-intereses-bancarios/" target="_blank" rel="noopener">Retención de ISR 2026 (Ley de Ingresos, art. 24)</a></li>
+    </ul>
+  </footer>
+</div>
+
+<a class="totop" href="#top" id="totop">↑ Arriba</a>
+
+<script>
+(function(){
+  var store = {
+    get:function(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+    set:function(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  };
+
+  /* Volver arriba */
+  document.getElementById('totop').addEventListener('click', function(e){
+    e.preventDefault(); window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  });
+
+  /* Tamaño de letra */
+  var sizeBtns = document.querySelectorAll('.seg button');
+  function applySize(scale){
+    document.documentElement.style.fontSize = scale;
+    sizeBtns.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.scale === scale ? 'true' : 'false'); });
+  }
+  sizeBtns.forEach(function(b){ b.addEventListener('click', function(){ applySize(b.dataset.scale); store.set('cetes-fs', b.dataset.scale); }); });
+  var savedSize = store.get('cetes-fs'); if(savedSize){ applySize(savedSize); }
+
+  /* Lista de requisitos */
+  var boxes = document.querySelectorAll('#checklist input[type=checkbox]');
+  var saved = {}; try{ saved = JSON.parse(store.get('cetes-req') || '{}') || {}; }catch(e){ saved = {}; }
+  function updateCount(){
+    var n = 0; boxes.forEach(function(b){ if(b.checked) n++; });
+    document.getElementById('chk-count').textContent = n + ' de ' + boxes.length + (n === 1 ? ' listo' : ' listos');
+    document.getElementById('chk-bar').style.width = (n / boxes.length * 100) + '%';
+  }
+  boxes.forEach(function(b){
+    if(saved[b.id]) b.checked = true;
+    b.addEventListener('change', function(){ saved[b.id] = b.checked; store.set('cetes-req', JSON.stringify(saved)); updateCount(); });
+  });
+  updateCount();
+
+  /* Fechas de la próxima subasta (hora local del aparato) */
+  var fmtLong = new Intl.DateTimeFormat('es-MX', {weekday:'long', day:'numeric', month:'long'});
+  var fmtShort = new Intl.DateTimeFormat('es-MX', {day:'numeric', month:'short'});
+  var fmtYear = new Intl.DateTimeFormat('es-MX', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  function addDays(d, n){ var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  var now = new Date();
+  var untilMon = (1 - now.getDay() + 7) % 7;
+  var cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate() + untilMon, 13, 0, 0);
+  if(cutoff <= now) cutoff = addDays(cutoff, 7);
+  var auction = addDays(cutoff, 1), settle = addDays(cutoff, 3);
+
+  ['d-lun','d-mar','d-mie','d-jue','d-vie'].forEach(function(id, i){
+    document.getElementById(id).textContent = fmtShort.format(addDays(cutoff, i));
+  });
+  var todayTue = now.getDay() === 2;
+  document.getElementById('next-main').textContent =
+    'Si da su orden de compra hoy, entra en la subasta del ' + fmtLong.format(auction) + '.';
+  document.getElementById('next-sub').textContent =
+    (todayTue ? 'Hoy martes hay subasta, pero es para las órdenes que se dieron hasta ayer. ' : '') +
+    'Tiene hasta el ' + fmtLong.format(cutoff) + ' a la 1:00 de la tarde. Sus Cetes aparecerían el ' + fmtLong.format(settle) +
+    '. Si ese lunes es día festivo, dé su orden el viernes anterior.';
+
+  /* Calculadora */
+  var refRates = {28:6.13, 91:6.60, 182:6.75, 364:6.93};
+  var ISR_RATE = 0.009; // retención provisional 2026, anual sobre capital
+  var money = new Intl.NumberFormat('es-MX', {style:'currency', currency:'MXN'});
+  var mIn = document.getElementById('c-monto'), pIn = document.getElementById('c-plazo'), tIn = document.getElementById('c-tasa');
+  var err = document.getElementById('c-err');
+
+  function calc(){
+    var monto = parseFloat(mIn.value), dias = parseInt(pIn.value, 10), tasa = parseFloat(tIn.value);
+    var ok = isFinite(monto) && monto >= 100;
+    err.hidden = ok || mIn.value === '';
+    if(!ok || !isFinite(tasa)){ return; }
+    var gan = monto * (tasa / 100) * dias / 360;
+    var isr = monto * ISR_RATE * dias / 365;
+    var neta = gan - isr;
+    document.getElementById('r-total').textContent = money.format(monto + neta);
+    document.getElementById('r-capital').textContent = money.format(monto);
+    document.getElementById('r-gan').textContent = money.format(gan);
+    document.getElementById('r-isr').textContent = '−' + money.format(isr);
+    document.getElementById('r-neta').textContent = money.format(neta);
+    document.getElementById('r-fechas').textContent =
+      'Si compra en la subasta del ' + fmtLong.format(auction) + ', su dinero empieza a contar el ' +
+      fmtLong.format(settle) + ' y vence alrededor del ' + fmtYear.format(addDays(settle, dias)) + '.';
+  }
+  pIn.addEventListener('change', function(){ tIn.value = refRates[pIn.value].toFixed(2); calc(); });
+  [mIn, tIn].forEach(function(el){ el.addEventListener('input', calc); });
+  document.getElementById('calc-form').addEventListener('submit', function(e){ e.preventDefault(); calc(); });
+  calc();
+
+  /* Copiar números */
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var txt = btn.dataset.copy;
+      var done = function(){ btn.textContent = 'Copiado'; setTimeout(function(){ btn.textContent = btn.dataset.label; }, 2200); };
+      var fallback = function(){
+        var el = btn.parentElement.querySelector('.phone');
+        if(el){ var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+        btn.textContent = 'Número seleccionado';
+        setTimeout(function(){ btn.textContent = btn.dataset.label; }, 2200);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, fallback); }
+      else { fallback(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
